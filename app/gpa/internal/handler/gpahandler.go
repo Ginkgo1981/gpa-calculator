@@ -1,11 +1,10 @@
 package handler
 
 import (
+	"gpa/app/gpa/internal/logic"
+	"gpa/app/gpa/internal/svc"
+	"gpa/app/gpa/internal/types"
 	"net/http"
-
-	"gpa/internal/logic"
-	"gpa/internal/svc"
-	"gpa/internal/types"
 
 	"github.com/zeromicro/go-zero/rest/httpx"
 )

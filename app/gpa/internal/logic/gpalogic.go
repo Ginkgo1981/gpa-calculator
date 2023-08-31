@@ -2,9 +2,8 @@ package logic
 
 import (
 	"context"
-
-	"gpa/internal/svc"
-	"gpa/internal/types"
+	"gpa/app/gpa/internal/svc"
+	"gpa/app/gpa/internal/types"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )

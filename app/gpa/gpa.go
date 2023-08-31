@@ -3,10 +3,9 @@ package main
 import (
 	"flag"
 	"fmt"
-
-	"gpa/internal/config"
-	"gpa/internal/handler"
-	"gpa/internal/svc"
+	"gpa/app/gpa/internal/config"
+	"gpa/app/gpa/internal/handler"
+	"gpa/app/gpa/internal/svc"
 
 	"github.com/zeromicro/go-zero/core/conf"
 	"github.com/zeromicro/go-zero/rest"
