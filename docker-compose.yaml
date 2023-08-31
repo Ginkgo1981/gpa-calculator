@@ -1,0 +1,64 @@
+version: "3.9"
+services:
+  gpa-api:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    container_name: gpa_api
+    environment:
+      - TZ=Asia/Shanghai
+    working_dir: /app
+    ports:
+      - "8888:8888"
+    restart: always
+    networks:
+      - gpa_net
+    depends_on:
+      - mysql
+      - redis
+  mysql:
+    image: mysql:8.0.28
+    init: true
+    container_name: gpa_mysql
+    environment:
+      - TZ=UTC
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+    ports:
+      - "23306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    command:
+      --default-authentication-plugin=mysql_native_password
+      --character-set-server=utf8mb4
+      --collation-server=utf8mb4_general_ci
+      --explicit_defaults_for_timestamp=true
+      --lower_case_table_names=1
+    restart: always
+    networks:
+      - gpa_net
+  redis:
+    image: redis:6.2.6-alpine
+    init: true
+    container_name: cache_redis
+    ports:
+      - "26379:6379"
+    environment:
+      - TZ=UTC
+    volumes:
+      - redis_data:/data:rw
+    command: redis-server --requirepass ${REDIS_PASSWORD} --appendonly yes
+    restart: always
+    networks:
+      - gpa_net
+volumes:
+  mysql_data:
+    name: gpa-mysql-data
+  redis_data:
+    name: gpa-reids-data
+networks:
+  gpa_net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.31.0.0/16
+          gateway: 172.31.0.1
