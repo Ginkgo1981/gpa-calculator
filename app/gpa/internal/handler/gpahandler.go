@@ -1,24 +1,17 @@
 package handler
 
 import (
-	"gpa/app/gpa/internal/logic"
-	"gpa/app/gpa/internal/svc"
-	"gpa/app/gpa/internal/types"
 	"net/http"
 
 	"github.com/zeromicro/go-zero/rest/httpx"
+	"gpa/app/gpa/internal/logic"
+	"gpa/app/gpa/internal/svc"
 )
 
 func GpaHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		var req types.Request
-		if err := httpx.Parse(r, &req); err != nil {
-			httpx.Error(w, err)
-			return
-		}
-
 		l := logic.NewGpaLogic(r.Context(), svcCtx)
-		resp, err := l.Gpa(&req)
+		resp, err := l.Gpa()
 		if err != nil {
 			httpx.Error(w, err)
 		} else {

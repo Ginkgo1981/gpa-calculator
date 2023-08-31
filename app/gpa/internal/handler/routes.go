@@ -3,6 +3,7 @@ package handler
 
 import (
 	"net/http"
+	"time"
 
 	"gpa/app/gpa/internal/svc"
 
@@ -14,9 +15,10 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 		[]rest.Route{
 			{
 				Method:  http.MethodGet,
-				Path:    "/from/:name",
+				Path:    "/students/gpa",
 				Handler: GpaHandler(serverCtx),
 			},
 		},
+		rest.WithPrefix("/api/v1"), rest.WithTimeout(60000*time.Millisecond),
 	)
 }

@@ -2,6 +2,8 @@ package logic
 
 import (
 	"context"
+	"fmt"
+
 	"gpa/app/gpa/internal/svc"
 	"gpa/app/gpa/internal/types"
 
@@ -22,8 +24,24 @@ func NewGpaLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GpaLogic {
 	}
 }
 
-func (l *GpaLogic) Gpa(req *types.Request) (resp *types.Response, err error) {
-	// todo: add your logic here and delete this line
+func (l *GpaLogic) Gpa() (resp *types.StudentGpaResponse, err error) {
+	studentGpa, err := l.svcCtx.StudentGradesModel.GetAllStudentGpa(l.ctx)
+	if err != nil {
+		return nil, err
+	}
+
+	items := make([]types.StudentGpaItem, len(studentGpa))
+
+	for i, student := range studentGpa {
+		items[i] = types.StudentGpaItem{
+			StudentId: fmt.Sprintf("%d", student.StudentId),
+			Gpa:       fmt.Sprintf("%.0f", student.Gpa),
+		}
+	}
+
+	resp = &types.StudentGpaResponse{
+		Results: items,
+	}
 
 	return
 }

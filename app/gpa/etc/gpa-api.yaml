@@ -1,3 +1,10 @@
 Name: gpa-api
 Host: 0.0.0.0
 Port: 8888
+
+GpaDB:
+  DataSource: root:${MYSQL_ROOT_PASSWORD}@tcp(localhost:23306)/gpa_dev?charset=utf8mb4&parseTime=true&loc=Asia%2FShanghai&multiStatements=true
+
+CacheRedis:
+  - Host: localhost:26379
+    Pass: ${REDIS_PASSWORD}

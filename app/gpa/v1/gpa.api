@@ -1,12 +1,20 @@
-type Request {
-	Name string `path:"name,options=you|me"`
+syntax = "v1"
+
+type StudentGpaItem {
+	StudentId string `json:"student_id"`
+	Gpa       string `json:"gpa"`
 }
 
-type Response {
-	Message string `json:"message"`
+type StudentGpaResponse {
+	Results []StudentGpaItem `json:"results"`
 }
+
+@server(
+	prefix: api/v1
+	timeout: 60s
+)
 
 service gpa-api {
 	@handler GpaHandler
-	get /from/:name(Request) returns (Response)
+	get /students/gpa returns (StudentGpaResponse)
 }
