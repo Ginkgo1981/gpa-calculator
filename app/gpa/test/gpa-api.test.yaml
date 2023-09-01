@@ -1,0 +1,10 @@
+Name: gpa-api
+Host: 0.0.0.0
+Port: 8888
+
+GpaDB:
+  DataSource: root:wa56IWLIJGeKL4Lf2A8@tcp(localhost:13306)/gpa_test?charset=utf8mb4&parseTime=true&multiStatements=true
+
+CacheRedis:
+  - Host: localhost:16379
+    Pass: pr2Pwncz89UvOjLD5v0
